@@ -1,6 +1,6 @@
 # GeoEdge AI — QGIS Plugin
 
-GeoEdge AI is an AI assistant for QGIS that translates natural-language requests into PyQGIS spatial analysis, cartography, and automation. It runs as a thin client inside QGIS and communicates with the GeoEdge Cloud agent at `https://api.geoedge.ai`.
+GeoEdge AI is an AI assistant for QGIS that translates natural-language requests into spatial analysis, cartography, and automation. It runs as a thin client inside QGIS and communicates with the GeoEdge Cloud agent at `https://api.geoedge.ai`.
 
 > **Network-dependent.** GeoEdge AI requires a connection to `api.geoedge.ai` during use. There is no offline mode.
 
@@ -8,7 +8,7 @@ GeoEdge AI is an AI assistant for QGIS that translates natural-language requests
 
 - **Describe in plain English** — "buffer the roads layer by 100 m and intersect with parcels".
 - **Inspects your data** — checks loaded layers, fields, CRS, viewport.
-- **Runs PyQGIS analysis** through a curated, audited tool registry.
+- **Runs spatial analysis** through a curated, audited tool registry.
 - **Iterates** — observes results, retries, asks for approval on destructive actions.
 - **Designs maps** with data-aware symbology, layouts, and exports.
 
