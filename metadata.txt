@@ -20,34 +20,3 @@ hasProcessingProvider=False
 server=False
 plugin_dependencies=
 changelog=
- 1.0.6 — fix: print() output from PyQGIS scripts now surfaces in the
-         agent's observations. Previously, stdout was silently discarded;
-         the LLM could not see computed values and re-ran inspection steps
-         unnecessarily. Per-task capturing print() replaces the builtins,
-         the log travels through the observation POST, and is appended to
-         the tool_result content the model reads.
- 1.0.5 — ui: marketing CTA shown inline beside the "Signed in" status
-         in luminous green so it stays visible during normal use.
-         Login dialog now pops automatically when the user opens the
-         plugin dock while signed out — no need to hunt for the
-         Sign in button.
- 1.0.4 — ui: login dialog now shows a footer link to geoedge.com.au
-         for users who want to explore the full platform.
- 1.0.3 — ui: chat panel typography + markdown rendering. Body text
-         now 14 px on a Segoe UI / Inter / system fallback stack.
-         Agent replies are rendered as real markdown (bold, italics,
-         headers, bullet/numbered lists, inline + fenced code, links)
-         instead of escaped source. Message bubbles get speaker
-         chip labels, accent border-left, tighter line-height; the
-         scrollbar is themed; input field has a focus ring.
- 1.0.2 — fix: executor no longer renames pre-existing project layers.
-         Previously, if the agent bound `output_layer` to a layer
-         that was already in QgsProject (e.g. an input or a prior
-         output), the executor's unconditional `setName` would rename
-         that user-owned layer. Now skipped with a warning so the
-         workspace stays intact.
- 1.0.1 — fix: email/password login dialog now closes reliably on success
-         (replaced daemon-thread + QTimer.singleShot with a QObject-based
-         worker; the previous pattern silently dropped the result on some
-         PyQt5 builds so the dialog stayed open after a successful login).
- 1.0.0 — Initial public release. Thin-client agent for plugins.qgis.org.
