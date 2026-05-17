@@ -88,8 +88,8 @@ QLabel {{
 }}
 """
 
-_GEOEDGE_SIGNUP_URL = "https://app.geoedge.ai/signup"
-_GEOEDGE_FORGOT_URL = "https://app.geoedge.ai/forgot-password"
+_GEOEDGE_SIGNUP_URL = "https://public.geoedge.com.au/"
+_GEOEDGE_FORGOT_URL = "https://public.geoedge.com.au/"
 # Marketing site shown in the login-dialog footer. The dashboard URLs
 # above (`app.geoedge.ai`) are auth-gated; this one is the public
 # landing page where users can read about the full platform.

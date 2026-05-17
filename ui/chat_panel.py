@@ -344,6 +344,11 @@ if HAS_QT:
             )
             self._build_ui()
             self.set_authenticated(False)
+            self.append_system(
+                "Welcome to GeoEdge AI. Sign in to start making spatial "
+                "analysis simple — click ‘Sign in’ below or visit "
+                "https://public.geoedge.com.au/ to create a free account."
+            )
 
         def _build_ui(self) -> None:
             v = QVBoxLayout(self)

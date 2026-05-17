@@ -111,6 +111,14 @@ class AuthManager:
         payload = json.dumps({"email": email, "password": password}).encode()
         try:
             data = self._api_post("/auth/login", payload)
+        except GeoEdgeAuthError as exc:
+            msg = str(exc)
+            # 401 "Invalid credentials" → friendly message
+            if not msg or "invalid" in msg.lower() or "credential" in msg.lower():
+                raise GeoEdgeAuthError(
+                    "Login failed. Username or password did not match."
+                ) from exc
+            raise GeoEdgeAuthError(msg) from exc
         except Exception as exc:
             raise GeoEdgeAuthError(f"Login failed: {exc}") from exc
 
@@ -464,14 +472,18 @@ class AuthManager:
             with urlopen(req, timeout=timeout) as resp:
                 return json.loads(resp.read().decode())
         except HTTPError as exc:
-            body_text = ""
+            detail = ""
             try:
-                body_text = exc.read().decode()
+                body = json.loads(exc.read().decode())
+                raw = body.get("detail") or ""
+                # detail may be a dict (FastAPI validation errors) or a string
+                if isinstance(raw, dict):
+                    detail = raw.get("message") or raw.get("msg") or str(raw)
+                elif isinstance(raw, str):
+                    detail = raw
             except Exception:
                 pass
-            raise GeoEdgeAuthError(
-                f"HTTP {exc.code} from {path}: {body_text}"
-            ) from exc
+            raise GeoEdgeAuthError(detail or f"Request failed (HTTP {exc.code})") from exc
         except URLError as exc:
             raise GeoEdgeAuthError(
                 f"Network error reaching {path}: {exc.reason}"
