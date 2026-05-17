@@ -18,5 +18,4 @@ experimental=True
 deprecated=False
 hasProcessingProvider=False
 server=False
-plugin_dependencies=
 changelog=
