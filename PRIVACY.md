@@ -1,8 +1,8 @@
 # Privacy & Data Flow — GeoEdge AI QGIS Plugin
 
-GeoEdge AI is a network-dependent thin client. This document lists every piece of information the plugin sends to GeoEdge Cloud (`api.geoedge.ai`), what is **not** sent by default, and the settings that control optional data sharing.
+GeoEdge AI is a network-dependent thin client. This document lists every piece of information the plugin sends to GeoEdge Cloud (`publicapi.geoedge.com.au`), what is **not** sent by default, and the settings that control optional data sharing.
 
-Last updated: 2026-05-14. Plugin version: 1.0.0.
+Last updated: 2026-05-18. Plugin version: 1.0.9.
 
 ## What gets sent to the server (default behaviour)
 
@@ -50,21 +50,21 @@ All toggles persist across plugin upgrades.
 - **Telemetry events (when opted in):** retained 90 days.
 - **Crash reports (when opted in):** retained 180 days.
 
-See [https://geoedge.ai/privacy](https://geoedge.ai/privacy) for the full GeoEdge Cloud privacy policy, including data-deletion and export requests.
+See [https://public.geoedge.com.au/privacy](https://public.geoedge.com.au/privacy) for the full GeoEdge Cloud privacy policy, including data-deletion and export requests.
 
 ## Network endpoints
 
 The plugin connects to:
 
-- `https://api.geoedge.ai/v1/auth/*` — login, token refresh.
-- `https://api.geoedge.ai/v1/agent/stream` — agent SSE channel.
-- `https://api.geoedge.ai/v1/agent/cancel` — cancel a turn.
-- `https://api.geoedge.ai/v1/agent/capabilities` — protocol negotiation.
-- `https://api.geoedge.ai/v1/usage` — token balance display.
-- `https://api.geoedge.ai/v1/plans` — plan info display.
+- `https://publicapi.geoedge.com.au/v1/auth/*` — login, token refresh.
+- `https://publicapi.geoedge.com.au/v1/agent/stream` — agent SSE channel.
+- `https://publicapi.geoedge.com.au/v1/agent/cancel` — cancel a turn.
+- `https://publicapi.geoedge.com.au/v1/agent/capabilities` — protocol negotiation.
+- `https://publicapi.geoedge.com.au/v1/usage` — token balance display.
+- `https://publicapi.geoedge.com.au/v1/plans` — plan info display.
 
 No other domains are contacted.
 
 ## Questions
 
-Email [support@geoedge.ai](mailto:support@geoedge.ai) for privacy-specific questions or data requests.
+Email [support@geoedge.com.au](mailto:support@geoedge.com.au) for privacy-specific questions or data requests.

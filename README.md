@@ -1,8 +1,8 @@
 # GeoEdge AI — QGIS Plugin
 
-GeoEdge AI is an AI assistant for QGIS that translates natural-language requests into spatial analysis, cartography, and automation. It runs as a thin client inside QGIS and communicates with the GeoEdge Cloud agent at `https://api.geoedge.ai`.
+GeoEdge AI is an AI assistant for QGIS that translates natural-language requests into spatial analysis, cartography, and automation. It runs as a thin client inside QGIS and communicates with the GeoEdge Cloud agent at `https://publicapi.geoedge.com.au`.
 
-> **Network-dependent.** GeoEdge AI requires a connection to `api.geoedge.ai` during use. There is no offline mode.
+> **Network-dependent.** GeoEdge AI requires a connection to `publicapi.geoedge.com.au` during use. There is no offline mode.
 
 ## What it does
 
@@ -12,13 +12,13 @@ GeoEdge AI is an AI assistant for QGIS that translates natural-language requests
 - **Iterates** — observes results, retries, asks for approval on destructive actions.
 - **Designs maps** with data-aware symbology, layouts, and exports.
 
-The agent itself runs on `api.geoedge.ai`; tool execution happens locally inside your QGIS session, so your project files and full feature data never leave your machine unless you explicitly enable a related setting.
+The agent itself runs on `publicapi.geoedge.com.au`; tool execution happens locally inside your QGIS session, so your project files and full feature data never leave your machine unless you explicitly enable a related setting.
 
 ## Account & pricing
 
 - **Free starter plan** — sign up at [https://app.geoedge.com.au/](https://app.geoedge.com.au/). No credit card required.
 - Paid plans and pay-as-you-go tokens available for heavier use.
-- See [https://geoedge.ai/pricing](https://geoedge.ai/pricing) for current limits.
+- See [https://public.geoedge.com.au/pricing](https://public.geoedge.com.au/pricing) for current limits.
 
 ## Install
 
@@ -37,7 +37,7 @@ The agent itself runs on `api.geoedge.ai`; tool execution happens locally inside
 ## Requirements
 
 - QGIS 3.40 or later (current LTR or newer).
-- Outbound HTTPS access to `api.geoedge.ai`.
+- Outbound HTTPS access to `publicapi.geoedge.com.au`.
 - A GeoEdge Cloud account (free starter plan available).
 
 ## Privacy
@@ -55,5 +55,5 @@ Pre-release. Will be submitted to [plugins.qgis.org](https://plugins.qgis.org) m
 ## Support
 
 - Issues: [GitHub Issues](https://github.com/GeoEDGE-AI/GeoEDGE_AI_QGIS_Public_Plugin/issues)
-- Email: support@geoedge.ai
-- Web: [https://geoedge.ai](https://geoedge.ai)
+- Email: support@geoedge.com.au
+- Web: [https://public.geoedge.com.au](https://public.geoedge.com.au)
