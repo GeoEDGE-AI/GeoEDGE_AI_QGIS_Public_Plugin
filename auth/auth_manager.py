@@ -134,6 +134,7 @@ class AuthManager:
         self._refresh_token = data.get("refresh_token")
         self._user_profile = data.get("profile", {})
         self._token_fetched_at = time.time()
+        self._augment_profile_from_jwt()
 
         self._persist_tokens(refresh_days=30)
         logger.info("Login successful for %s", email)
@@ -223,6 +224,8 @@ class AuthManager:
         if new_refresh:
             self._refresh_token = new_refresh
             self._credentials.store_auth_token("refresh", new_refresh)
+
+        self._augment_profile_from_jwt()
 
         # The server just accepted our refresh token, so push the local
         # "give up and re-login" deadline forward. Without this, the
@@ -382,6 +385,7 @@ class AuthManager:
         # only after email/password.
         self._user_profile = data.get("profile", {})
         self._token_fetched_at = time.time()
+        self._augment_profile_from_jwt()
 
         self._persist_tokens(refresh_days=7)
         logger.info("Browser OAuth login successful for provider=%s", provider)
@@ -433,6 +437,24 @@ class AuthManager:
         except Exception:
             logger.debug("Failed to decode JWT locally.", exc_info=True)
             return None
+
+    def _augment_profile_from_jwt(self) -> None:
+        """Backfill user_profile fields from the access-token JWT claims.
+
+        /auth/refresh returns only tokens, no profile — without this the
+        settings dialog and chat panel would show "Sign in" / generic
+        "Signed in." after a session restore even though the user is
+        authenticated.
+        """
+        if not self._access_token:
+            return
+        if self._user_profile is None:
+            self._user_profile = {}
+        claims = self._decode_jwt_local(self._access_token) or {}
+        for key in ("email", "user_id", "plan", "role"):
+            value = claims.get(key)
+            if value and not self._user_profile.get(key):
+                self._user_profile[key] = value
 
     # ------------------------------------------------------------------
     # Internal helpers
