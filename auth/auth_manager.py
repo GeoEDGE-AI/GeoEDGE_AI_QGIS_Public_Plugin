@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 # Points at the Railway-hosted backend during the experimental phase.
 # Flip to https://api.geoedge.ai/v1 once DNS is cut over.
-DEFAULT_API_BASE = "https://backend-production-6401.up.railway.app/v1"
+DEFAULT_API_BASE = "https://publicapi.geoedge.com.au/v1"
 
 # Offline grace: tolerate brief network blips by treating a recently-expired
 # token as still valid for this many seconds.
