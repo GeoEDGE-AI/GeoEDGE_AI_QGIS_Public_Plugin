@@ -18,7 +18,9 @@ from __future__ import annotations
 import json
 import logging
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from ._http import safe_urlopen
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +41,7 @@ def post_cancel(
     }
     req = Request(url, data=body, headers=headers, method="POST")
     try:
-        with urlopen(req, timeout=timeout):
+        with safe_urlopen(req, timeout=timeout):
             return None
     except (HTTPError, URLError) as exc:
         logger.warning("agent/cancel failed: %s", exc)

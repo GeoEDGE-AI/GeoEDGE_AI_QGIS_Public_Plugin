@@ -23,7 +23,9 @@ import logging
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from ._http import safe_urlopen
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +61,7 @@ class CapabilitiesClient:
 
         req = Request(url, headers=headers, method="GET")
         try:
-            with urlopen(req, timeout=15) as resp:
+            with safe_urlopen(req, timeout=15) as resp:
                 data = json.loads(resp.read().decode())
         except HTTPError as exc:
             raise ConnectionError(

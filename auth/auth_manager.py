@@ -31,9 +31,11 @@ if TYPE_CHECKING:
 try:
     from urllib.error import HTTPError, URLError
     from urllib.parse import urlencode
-    from urllib.request import Request, urlopen
+    from urllib.request import Request
 except ImportError:  # pragma: no cover — should never happen on CPython
     raise
+
+from geoedge_ai.cloud_client._http import safe_urlopen
 
 logger = logging.getLogger(__name__)
 
@@ -162,7 +164,7 @@ class AuthManager:
                         "Authorization": f"Bearer {access_token}",
                     }
                     req = Request(url, data=payload, headers=headers, method="POST")
-                    with urlopen(req, timeout=5):
+                    with safe_urlopen(req, timeout=5):
                         pass
                 except Exception:
                     logger.debug("Server-side logout failed; local cleanup already done.")
@@ -491,7 +493,7 @@ class AuthManager:
 
         req = Request(url, data=body, headers=headers, method="POST")
         try:
-            with urlopen(req, timeout=timeout) as resp:
+            with safe_urlopen(req, timeout=timeout) as resp:
                 return json.loads(resp.read().decode())
         except HTTPError as exc:
             detail = ""

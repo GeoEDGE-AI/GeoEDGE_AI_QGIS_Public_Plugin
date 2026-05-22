@@ -34,7 +34,9 @@ import threading
 from collections.abc import Callable, Iterator
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from ._http import safe_urlopen
 
 logger = logging.getLogger(__name__)
 
@@ -216,7 +218,7 @@ class AgentStreamClient:
             "X-GeoEdge-Integrity-Hash": _get_plugin_hash(),
         }
         req = Request(url, data=body, headers=headers, method="POST")
-        resp = urlopen(req, timeout=self._timeout)
+        resp = safe_urlopen(req, timeout=self._timeout)
         with self._lock:
             if self._closed:
                 # close() raced us; honour it.

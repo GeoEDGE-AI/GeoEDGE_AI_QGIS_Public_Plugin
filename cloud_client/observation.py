@@ -25,8 +25,9 @@ import json
 import logging
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.request import Request
 
+from ._http import safe_urlopen
 from .agent_stream import _get_plugin_hash, _get_plugin_version
 
 logger = logging.getLogger(__name__)
@@ -70,7 +71,7 @@ def post_observation(
     }
     req = Request(url, data=body, headers=headers, method="POST")
     try:
-        with urlopen(req, timeout=timeout):
+        with safe_urlopen(req, timeout=timeout):
             return True
     except HTTPError as exc:
         logger.warning(

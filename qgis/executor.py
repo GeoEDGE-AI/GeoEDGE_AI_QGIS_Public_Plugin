@@ -166,7 +166,7 @@ class GeoEdgeTask(QgsTask):  # type: ignore[misc]
         output_layer = self._step.get("output_layer_name")
 
         try:
-            exec(self._code, ns)  # noqa: S102 — intentional sandboxed exec
+            exec(self._code, ns)  # nosec B102 — intentional sandboxed exec (noqa: S102)
             # Templates conventionally bind ``output_layer = result['OUTPUT']``
             # at the end. Capture it for ``finished()`` to register with
             # QgsProject on the GUI thread — chained steps reference
