@@ -240,7 +240,7 @@ if HAS_QT:
 
             # POST on a daemon thread so the SSE loop can resume reading
             # the next event without waiting on a network round-trip.
-            access_token = ""
+            access_token = ""  # nosec B105 — empty default, populated below
             try:
                 access_token = self._token_provider() or ""
             except Exception:
