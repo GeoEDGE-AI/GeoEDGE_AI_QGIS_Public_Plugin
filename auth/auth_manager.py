@@ -26,7 +26,7 @@ from typing import TYPE_CHECKING, Any
 from .exceptions import GeoEdgeAuthError
 
 if TYPE_CHECKING:
-    from geoedge_ai.qgis.credentials import GeoEdgeCredentials
+    from GeoEDGE_AI.qgis.credentials import GeoEdgeCredentials
 
 try:
     from urllib.error import HTTPError, URLError
@@ -35,7 +35,7 @@ try:
 except ImportError:  # pragma: no cover — should never happen on CPython
     raise
 
-from geoedge_ai.cloud_client._http import safe_urlopen
+from GeoEDGE_AI.cloud_client._http import safe_urlopen
 
 logger = logging.getLogger(__name__)
 

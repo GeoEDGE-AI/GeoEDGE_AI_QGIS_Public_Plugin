@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 
 
 def apply_log_level() -> None:
-    """Read the configured log level and apply it to the geoedge_ai logger.
+    """Read the configured log level and apply it to the GeoEDGE_AI logger.
 
     Called at plugin startup and whenever the user saves the settings
     dialog. Without this, the log-level setting is collected but never
@@ -57,7 +57,7 @@ def apply_log_level() -> None:
     s = QSettings()
     name = s.value(KEY_LOG_LEVEL, "WARNING", type=str)
     level = getattr(logging, name.upper(), logging.WARNING)
-    logging.getLogger("geoedge_ai").setLevel(level)
+    logging.getLogger("GeoEDGE_AI").setLevel(level)
 
 
 if HAS_QT:

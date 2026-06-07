@@ -16,8 +16,8 @@ thread by the task framework; we use it to push results through
 ``tool_call`` handler can wire them into an observation POST.
 
 The code itself sees a curated namespace built by
-:func:`geoedge_ai.safety.safe_namespace.build_safe_namespace`. The AST
-validator at :func:`geoedge_ai.safety.code_validator.validate_code`
+:func:`GeoEDGE_AI.safety.safe_namespace.build_safe_namespace`. The AST
+validator at :func:`GeoEDGE_AI.safety.code_validator.validate_code`
 runs **before** the task is constructed; this module trusts that the
 code has already been checked.
 """

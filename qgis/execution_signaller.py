@@ -12,7 +12,7 @@
 ``QgsTask`` cannot reliably carry custom ``pyqtSignal`` attributes
 across every PyQGIS build (it's not a pure ``QObject`` subclass on all
 platforms). This tiny ``QObject`` lives on the GUI thread and is used
-by :class:`geoedge_ai.qgis.executor.GeoEdgeTask` to emit results back to
+by :class:`GeoEDGE_AI.qgis.executor.GeoEdgeTask` to emit results back to
 whoever connected to ``execution_complete`` once the background ``run``
 finishes.
 """

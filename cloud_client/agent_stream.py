@@ -72,7 +72,7 @@ def _get_plugin_hash() -> str:
     import hashlib
     from pathlib import Path
 
-    pkg_root = Path(__file__).resolve().parent.parent  # geoedge_ai/
+    pkg_root = Path(__file__).resolve().parent.parent  # GeoEDGE_AI/
     repo_root = pkg_root.parent
     entries = []
     for p in sorted(pkg_root.rglob("*.py"), key=lambda f: f.relative_to(repo_root).as_posix()):
