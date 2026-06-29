@@ -14,6 +14,8 @@ from __future__ import annotations
 import logging
 import re
 
+from .._qt_compat import QtC
+
 try:
     from qgis.PyQt.QtCore import Qt, pyqtSignal
     from qgis.PyQt.QtGui import QFont
@@ -308,8 +310,8 @@ if HAS_QT:
             self._on_submit = on_submit
 
         def keyPressEvent(self, event):  # type: ignore[override]
-            if event.key() in (Qt.Key_Return, Qt.Key_Enter) and not (
-                event.modifiers() & Qt.ShiftModifier
+            if event.key() in (QtC.Key_Return, QtC.Key_Enter) and not (
+                event.modifiers() & QtC.ShiftModifier
             ):
                 self._on_submit()
                 event.accept()
@@ -362,10 +364,10 @@ if HAS_QT:
             # Rich text + external-link support so the signed-in status
             # can carry an inline marketing CTA. Without RichText the
             # <a> tag would render as literal characters.
-            self._status.setTextFormat(Qt.RichText)
+            self._status.setTextFormat(QtC.RichText)
             self._status.setOpenExternalLinks(True)
             self._status.setTextInteractionFlags(
-                Qt.TextBrowserInteraction
+                QtC.TextBrowserInteraction
             )
             self._status.setStyleSheet(
                 f"color: {_COLORS['text_dim']}; "

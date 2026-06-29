@@ -14,6 +14,8 @@ from __future__ import annotations
 import logging
 import webbrowser
 
+from .._qt_compat import QtC
+
 try:
     from qgis.PyQt.QtCore import Qt, pyqtSignal
     from qgis.PyQt.QtWidgets import (
@@ -108,10 +110,10 @@ if HAS_QT:
                 f"color: {_COLORS['link']}; font-size: 12px; "
                 "text-decoration: underline;"
             )
-            self.setCursor(Qt.PointingHandCursor)
+            self.setCursor(QtC.PointingHandCursor)
 
         def mousePressEvent(self, event):  # type: ignore[override]
-            if event.button() == Qt.LeftButton:
+            if event.button() == QtC.LeftButton:
                 self.clicked.emit()
             super().mousePressEvent(event)
 
@@ -143,14 +145,14 @@ if HAS_QT:
             layout.setSpacing(10)
 
             title = QLabel("GeoEdge AI")
-            title.setAlignment(Qt.AlignCenter)
+            title.setAlignment(QtC.AlignCenter)
             title.setStyleSheet(
                 f"color: {_COLORS['primary']}; font-size: 22px; font-weight: bold;"
             )
             layout.addWidget(title)
 
             subtitle = QLabel("Sign in to your account")
-            subtitle.setAlignment(Qt.AlignCenter)
+            subtitle.setAlignment(QtC.AlignCenter)
             subtitle.setStyleSheet(f"color: {_COLORS['text_dim']}; font-size: 13px;")
             layout.addWidget(subtitle)
 
@@ -182,7 +184,7 @@ if HAS_QT:
             layout.addLayout(row)
 
             self._lbl_error = QLabel("")
-            self._lbl_error.setAlignment(Qt.AlignCenter)
+            self._lbl_error.setAlignment(QtC.AlignCenter)
             self._lbl_error.setWordWrap(True)
             self._lbl_error.setStyleSheet(
                 f"color: {_COLORS['error']}; font-size: 12px; min-height: 20px;"

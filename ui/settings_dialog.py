@@ -18,6 +18,8 @@ from __future__ import annotations
 
 import logging
 
+from .._qt_compat import QtC
+
 try:
     from qgis.PyQt.QtCore import QSettings, Qt, pyqtSignal
     from qgis.PyQt.QtWidgets import (
@@ -109,12 +111,12 @@ if HAS_QT:
                 v.addWidget(QLabel(f"Signed in as: <b>{self._user_email}</b>"))
                 btn_signout = QPushButton("Sign out")
                 btn_signout.clicked.connect(self._on_signout)
-                v.addWidget(btn_signout, alignment=Qt.AlignLeft)
+                v.addWidget(btn_signout, alignment=QtC.AlignLeft)
             else:
                 v.addWidget(QLabel("Not signed in."))
                 btn_signin = QPushButton("Sign in")
                 btn_signin.clicked.connect(self._on_signin)
-                v.addWidget(btn_signin, alignment=Qt.AlignLeft)
+                v.addWidget(btn_signin, alignment=QtC.AlignLeft)
 
             link = QLabel(
                 'Need an account? <a href="https://public.geoedge.com.au/auth/register">'

@@ -25,6 +25,8 @@ import logging
 import os
 from typing import Any
 
+from ._qt_compat import QtC
+
 logger = logging.getLogger(__name__)
 
 try:
@@ -196,8 +198,8 @@ class GeoEdgePlugin:
         self.dock_widget = QDockWidget("GeoEdge AI", self.iface.mainWindow())
         self.dock_widget.setObjectName("GeoEdgeAIDock")
         self.dock_widget.setWidget(self._chat_panel)
-        self.dock_widget.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+        self.dock_widget.setAllowedAreas(QtC.LeftDockWidgetArea | QtC.RightDockWidgetArea)
+        self.iface.addDockWidget(QtC.RightDockWidgetArea, self.dock_widget)
         # Auto-prompt for sign-in whenever the dock becomes visible
         # while the user isn't authenticated. Most users won't notice
         # the small "Sign in" button below the chat log; surfacing the
