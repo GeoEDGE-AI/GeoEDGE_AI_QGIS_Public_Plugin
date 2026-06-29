@@ -14,7 +14,7 @@ from __future__ import annotations
 import logging
 import webbrowser
 
-from .._qt_compat import QtC
+from .._qt_compat import QtC, QLineEditC
 
 try:
     from qgis.PyQt.QtCore import Qt, pyqtSignal
@@ -169,7 +169,7 @@ if HAS_QT:
             lbl_pass.setStyleSheet("font-size: 12px; font-weight: bold;")
             layout.addWidget(lbl_pass)
             self._txt_password = QLineEdit()
-            self._txt_password.setEchoMode(QLineEdit.Password)
+            self._txt_password.setEchoMode(QLineEditC.Password)
             self._txt_password.setPlaceholderText("Enter your password")
             self._txt_password.returnPressed.connect(self._on_login)
             layout.addWidget(self._txt_password)

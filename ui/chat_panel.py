@@ -14,7 +14,7 @@ from __future__ import annotations
 import logging
 import re
 
-from .._qt_compat import QtC
+from .._qt_compat import QtC, QFontC
 
 try:
     from qgis.PyQt.QtCore import Qt, pyqtSignal
@@ -390,7 +390,7 @@ if HAS_QT:
             # Default font on the document — used as the baseline
             # everywhere the per-element CSS doesn't override.
             self._log.document().setDefaultFont(
-                QFont("Segoe UI", _BODY_PX, QFont.Normal),
+                QFont("Segoe UI", _BODY_PX, QFontC.Normal),
             )
             self._log.setStyleSheet(
                 f"QTextBrowser {{ "

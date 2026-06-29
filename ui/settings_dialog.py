@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import logging
 
-from .._qt_compat import QtC
+from .._qt_compat import QtC, QDialogButtonBoxC
 
 try:
     from qgis.PyQt.QtCore import QSettings, Qt, pyqtSignal
@@ -97,7 +97,7 @@ if HAS_QT:
             self._tabs.addTab(self._build_privacy_tab(), "Privacy")
 
             buttons = QDialogButtonBox(
-                QDialogButtonBox.Save | QDialogButtonBox.Cancel
+                QDialogButtonBoxC.Save | QDialogButtonBoxC.Cancel
             )
             buttons.accepted.connect(self._on_save)
             buttons.rejected.connect(self.reject)
