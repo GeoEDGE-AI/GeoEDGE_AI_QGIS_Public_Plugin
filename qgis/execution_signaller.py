@@ -23,30 +23,33 @@ try:
     from qgis.PyQt.QtCore import QObject, pyqtSignal  # type: ignore[import-untyped]
 except ImportError:
     try:
-        from PyQt5.QtCore import QObject, pyqtSignal  # type: ignore[import-untyped]
+        from PyQt6.QtCore import QObject, pyqtSignal  # type: ignore[import-untyped]  # QGIS 4.x standalone
     except ImportError:
-        # Lightweight stubs so the module imports outside QGIS — useful
-        # for unit tests and ``py_compile`` smoke checks.
-        class _QObjectStub:  # type: ignore[no-redef]
-            pass
-
-        class _SignalStub:  # type: ignore[no-redef]
-            """No-op signal stand-in."""
-
-            def __init__(self, *_args: object, **_kwargs: object) -> None:
+        try:
+            from PyQt5.QtCore import QObject, pyqtSignal  # type: ignore[import-untyped]
+        except ImportError:
+            # Lightweight stubs so the module imports outside QGIS — useful
+            # for unit tests and ``py_compile`` smoke checks.
+            class _QObjectStub:  # type: ignore[no-redef]
                 pass
 
-            def emit(self, *_args: object) -> None:
-                pass
+            class _SignalStub:  # type: ignore[no-redef]
+                """No-op signal stand-in."""
 
-            def connect(self, *_args: object) -> None:
-                pass
+                def __init__(self, *_args: object, **_kwargs: object) -> None:
+                    pass
 
-            def disconnect(self, *_args: object) -> None:
-                pass
+                def emit(self, *_args: object) -> None:
+                    pass
 
-        QObject = _QObjectStub  # type: ignore[misc,assignment]
-        pyqtSignal = _SignalStub  # type: ignore[misc,assignment]
+                def connect(self, *_args: object) -> None:
+                    pass
+
+                def disconnect(self, *_args: object) -> None:
+                    pass
+
+            QObject = _QObjectStub  # type: ignore[misc,assignment]
+            pyqtSignal = _SignalStub  # type: ignore[misc,assignment]
 
 
 class ExecutionSignaller(QObject):  # type: ignore[misc]

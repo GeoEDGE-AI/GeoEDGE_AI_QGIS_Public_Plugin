@@ -1023,15 +1023,29 @@ class GeoEdgePlugin:
         # Use explicit constant comparison rather than getattr(.., "name") on
         # the SIP enum value — QGIS SIP enums do not reliably expose a .name
         # attribute across all builds.
-        _TYPE_MAP = {
-            QgsMapLayer.VectorLayer: "vector",
-            QgsMapLayer.RasterLayer: "raster",
-            QgsMapLayer.MeshLayer: "mesh",
-            QgsMapLayer.VectorTileLayer: "vector_tile",
-            QgsMapLayer.AnnotationLayer: "annotation",
-            QgsMapLayer.PluginLayer: "plugin",
-            QgsMapLayer.GroupLayer: "group",
-        }
+        # QGIS 4.x moved the enum to QgsMapLayer.LayerType.*; QGIS 3.x exposes
+        # them as flat attributes directly on QgsMapLayer.
+        try:
+            _TYPE_MAP = {
+                QgsMapLayer.LayerType.VectorLayer: "vector",
+                QgsMapLayer.LayerType.RasterLayer: "raster",
+                QgsMapLayer.LayerType.MeshLayer: "mesh",
+                QgsMapLayer.LayerType.VectorTileLayer: "vector_tile",
+                QgsMapLayer.LayerType.AnnotationLayer: "annotation",
+                QgsMapLayer.LayerType.PluginLayer: "plugin",
+                QgsMapLayer.LayerType.GroupLayer: "group",
+            }
+        except AttributeError:
+            # QGIS 3.x — enum values are flat attributes on QgsMapLayer
+            _TYPE_MAP = {
+                QgsMapLayer.VectorLayer: "vector",
+                QgsMapLayer.RasterLayer: "raster",
+                QgsMapLayer.MeshLayer: "mesh",
+                QgsMapLayer.VectorTileLayer: "vector_tile",
+                QgsMapLayer.AnnotationLayer: "annotation",
+                QgsMapLayer.PluginLayer: "plugin",
+                QgsMapLayer.GroupLayer: "group",
+            }
         layer_type = None
         try:
             t = lyr.type() if hasattr(lyr, "type") else None

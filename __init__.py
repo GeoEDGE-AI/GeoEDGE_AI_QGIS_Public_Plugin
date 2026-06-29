@@ -16,7 +16,7 @@ execution, and the SSE consumer that connects to the cloud agent.
 
 from __future__ import annotations
 
-__version__ = "1.0.0"
+__version__ = "1.0.16"
 __author__ = "GeoEdge AI"
 
 

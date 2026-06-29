@@ -105,21 +105,30 @@ def _try_import_pyqt() -> dict[str, Any]:
         ns["QVariant"] = QVariant
     except ImportError:
         try:
-            from PyQt5.QtCore import QVariant
+            from PyQt6.QtCore import QVariant  # QGIS 4.x standalone
             ns["QVariant"] = QVariant
         except ImportError:
-            pass
+            try:
+                from PyQt5.QtCore import QVariant
+                ns["QVariant"] = QVariant
+            except ImportError:
+                pass
     try:
         from qgis.PyQt.QtGui import QColor, QFont
         ns["QColor"] = QColor
         ns["QFont"] = QFont
     except ImportError:
         try:
-            from PyQt5.QtGui import QColor, QFont
+            from PyQt6.QtGui import QColor, QFont  # QGIS 4.x standalone
             ns["QColor"] = QColor
             ns["QFont"] = QFont
         except ImportError:
-            pass
+            try:
+                from PyQt5.QtGui import QColor, QFont
+                ns["QColor"] = QColor
+                ns["QFont"] = QFont
+            except ImportError:
+                pass
     return ns
 
 
