@@ -368,7 +368,7 @@ class GeoEdgePlugin:
 
         dlg.login_requested.connect(_on_login_requested)
         dlg.oauth_requested.connect(_on_oauth_requested)
-        dlg.exec_()
+        dlg.exec()  # exec_() removed in PyQt6/Qt6; exec() works on both
 
     def _on_logout(self) -> None:
         if self._auth_manager is None:
@@ -416,7 +416,7 @@ class GeoEdgePlugin:
         # URL. Without this, every "open settings → close" trip wastes
         # a capabilities round-trip on the next send.
         previous_api_base = self._api_base()
-        dlg.exec_()
+        dlg.exec()  # exec_() removed in PyQt6/Qt6; exec() works on both
 
         new_api_base = self._api_base()
         self._auth_manager.api_base = new_api_base
