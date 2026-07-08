@@ -135,7 +135,7 @@ if HAS_QT:
         def __init__(self, parent: QWidget | None = None) -> None:
             super().__init__(parent)
             self.setWindowTitle("GeoEdge AI — Sign in")
-            self.setFixedSize(380, 420)
+            self.setFixedSize(380, 452)
             self.setStyleSheet(_LOGIN_CSS)
             self._build_ui()
 
@@ -143,6 +143,18 @@ if HAS_QT:
             layout = QVBoxLayout(self)
             layout.setContentsMargins(30, 24, 30, 24)
             layout.setSpacing(10)
+
+            # ---- free-to-use banner ----
+            # First thing every signed-out user sees. Nudges toward account
+            # creation before they hit the sign-in form below.
+            banner = QLabel("Free to register and use")
+            banner.setAlignment(QtC.AlignCenter)
+            banner.setStyleSheet(
+                f"background-color: {_COLORS['primary']}; color: #ffffff; "
+                "font-size: 12px; font-weight: bold; border-radius: 6px; "
+                "padding: 6px 10px;"
+            )
+            layout.addWidget(banner)
 
             title = QLabel("GeoEdge AI")
             title.setAlignment(QtC.AlignCenter)
