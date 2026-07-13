@@ -97,6 +97,8 @@ _GEOEDGE_FORGOT_URL = "https://public.geoedge.com.au/auth/forgot-password"
 # landing page where users can read about the full platform.
 _GEOEDGE_MARKETING_URL = "https://www.geoedge.com.au/"
 _GEOEDGE_MARKETING_DOMAIN = "geoedge.com.au"   # what we render in the UI
+# YouTube channel with demo videos of the plugin in action.
+_GEOEDGE_YOUTUBE_URL = "https://www.youtube.com/channel/UCWF4VavocNdqOMVTjudd-TQ"
 
 
 if HAS_QT:
@@ -135,7 +137,7 @@ if HAS_QT:
         def __init__(self, parent: QWidget | None = None) -> None:
             super().__init__(parent)
             self.setWindowTitle("GeoEdge AI — Sign in")
-            self.setFixedSize(380, 452)
+            self.setFixedSize(380, 478)
             self.setStyleSheet(_LOGIN_CSS)
             self._build_ui()
 
@@ -244,6 +246,15 @@ if HAS_QT:
             marketing_row.addStretch()
             layout.addLayout(marketing_row)
 
+            layout.addSpacing(4)
+            video_row = QHBoxLayout()
+            video_row.addStretch()
+            lnk_video = _LinkLabel("▶ See it in action on YouTube")
+            lnk_video.clicked.connect(self._on_video_link)
+            video_row.addWidget(lnk_video)
+            video_row.addStretch()
+            layout.addLayout(video_row)
+
             layout.addStretch()
 
         def show_error(self, message: str) -> None:
@@ -305,6 +316,12 @@ if HAS_QT:
                 webbrowser.open(_GEOEDGE_MARKETING_URL)
             except Exception:
                 logger.warning("Could not open browser for marketing site.")
+
+        def _on_video_link(self) -> None:
+            try:
+                webbrowser.open(_GEOEDGE_YOUTUBE_URL)
+            except Exception:
+                logger.warning("Could not open browser for YouTube channel.")
 
 else:
 
