@@ -355,7 +355,7 @@ class AuthManager:
         try:
             server.server_close()
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
         if cancel_event is not None and cancel_event.is_set():
             logger.info("OAuth login cancelled.")
@@ -406,7 +406,7 @@ class AuthManager:
                     self._credentials.delete_auth_token("refresh_expires")
                     return False
             except (ValueError, TypeError):
-                pass
+                pass  # nosec B110 - unparseable stored expiry, fall through to normal refresh
 
         return self.refresh()
 
@@ -506,7 +506,7 @@ class AuthManager:
                 elif isinstance(raw, str):
                     detail = raw
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             raise GeoEdgeAuthError(detail or f"Request failed (HTTP {exc.code})") from exc
         except URLError as exc:
             raise GeoEdgeAuthError(

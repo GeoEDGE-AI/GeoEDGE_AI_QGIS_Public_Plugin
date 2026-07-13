@@ -131,13 +131,13 @@ if HAS_QT:
             try:
                 self._client.close()
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             # Unblock any in-flight tool-call wait so the worker can exit.
             self._tool_call_event.set()
             try:
                 self.requestInterruption()
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
         # ------------------------------------------------------------------
         # GUI-thread reply slot

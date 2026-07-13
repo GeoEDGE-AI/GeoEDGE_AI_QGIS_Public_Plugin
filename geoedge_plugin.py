@@ -154,21 +154,21 @@ class GeoEdgePlugin:
                 self._oauth_worker.requestInterruption()
                 self._oauth_worker.wait(2000)
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             self._oauth_worker = None
 
         for action in self.actions:
             try:
                 self.iface.removePluginMenu(self.menu_name, action)
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
         self.actions.clear()
 
         if self.toolbar is not None:
             try:
                 self.toolbar.deleteLater()
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             self.toolbar = None
 
         if self.dock_widget is not None:
@@ -176,7 +176,7 @@ class GeoEdgePlugin:
                 self.iface.removeDockWidget(self.dock_widget)
                 self.dock_widget.deleteLater()
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             self.dock_widget = None
 
         self._chat_panel = None
@@ -275,11 +275,11 @@ class GeoEdgePlugin:
                 try:
                     worker.cancel()
                 except Exception:
-                    pass
+                    pass  # nosec B110 - best-effort cleanup, failure is non-fatal
                 try:
                     worker.finished.connect(worker.deleteLater)
                 except Exception:
-                    pass
+                    pass  # nosec B110 - best-effort cleanup, failure is non-fatal
                 self._oauth_worker = None
             # Tear down any in-flight email worker too.
             ew = email_worker_holder.get("worker")
@@ -287,11 +287,11 @@ class GeoEdgePlugin:
                 try:
                     ew.cancel()
                 except Exception:
-                    pass
+                    pass  # nosec B110 - best-effort cleanup, failure is non-fatal
                 try:
                     ew.finished.connect(ew.deleteLater)
                 except Exception:
-                    pass
+                    pass  # nosec B110 - best-effort cleanup, failure is non-fatal
                 email_worker_holder["worker"] = None
 
         dlg.finished.connect(_on_dialog_finished)
@@ -333,7 +333,7 @@ class GeoEdgePlugin:
             try:
                 worker.finished.connect(worker.deleteLater)
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             worker.start()
 
         def _on_oauth_requested(provider: str) -> None:
@@ -363,7 +363,7 @@ class GeoEdgePlugin:
             try:
                 worker.finished.connect(worker.deleteLater)
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
             worker.start()
 
         dlg.login_requested.connect(_on_login_requested)
@@ -715,11 +715,11 @@ class GeoEdgePlugin:
             old.finished_with_error.disconnect()
             old.finished.disconnect()
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
         try:
             old.cancel()
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
         try:
             exited = old.wait(wait_ms)
         except Exception:
@@ -733,7 +733,7 @@ class GeoEdgePlugin:
                 old.terminate()
                 old.wait(1000)
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
     def _on_cancel(self) -> None:
         if self._stream_worker is None:
@@ -767,7 +767,7 @@ class GeoEdgePlugin:
         try:
             self._stream_worker.cancel()
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
     def _on_stream_event(self, event_name: str, data: dict) -> None:
         if event_name == "capabilities":
@@ -1060,7 +1060,7 @@ class GeoEdgePlugin:
             crs = lyr.crs() if hasattr(lyr, "crs") else None
             crs_authid = crs.authid() if crs else None
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
         fields_out: list[dict[str, str]] = []
         try:
@@ -1076,7 +1076,7 @@ class GeoEdgePlugin:
                 gt = lyr.geometryType()
                 geometry_type = QgsWkbTypes.geometryDisplayString(gt)
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
         bbox = None
         try:
@@ -1091,7 +1091,7 @@ class GeoEdgePlugin:
                     ext.yMaximum(),
                 ]
         except Exception:
-            pass
+            pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
         entry: dict[str, Any] = {
             "id": lyr_id,

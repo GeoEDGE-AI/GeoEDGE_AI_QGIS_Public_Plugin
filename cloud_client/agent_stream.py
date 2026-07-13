@@ -130,7 +130,7 @@ class AgentStreamClient:
             try:
                 resp.close()
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
     def open_turn(
         self,
@@ -168,7 +168,7 @@ class AgentStreamClient:
             try:
                 resp.close()
             except Exception:
-                pass
+                pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
     def _open(self, body: bytes) -> Any:
         """POST and return the streaming response, refreshing once on 401."""
@@ -225,7 +225,7 @@ class AgentStreamClient:
                 try:
                     resp.close()
                 except Exception:
-                    pass
+                    pass  # nosec B110 - best-effort cleanup, failure is non-fatal
                 raise AgentStreamError("agent/stream closed before open completed.")
             self._response = resp
         return resp
