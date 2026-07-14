@@ -64,6 +64,11 @@ from .settings_keys import (
 # Roughly the last ten user/assistant pairs.
 _MAX_HISTORY_MESSAGES = 20
 
+# Cap fields transmitted per layer in the QGIS context payload. The backend
+# prompt only ever shows 8 fields per layer (context_manager.py), so sending
+# more than this is pure wasted bandwidth for wide attribute tables.
+_MAX_FIELDS_PER_LAYER = 15
+
 
 class GeoEdgePlugin:
     """Main QGIS plugin class.
@@ -1063,12 +1068,16 @@ class GeoEdgePlugin:
             pass  # nosec B110 - best-effort cleanup, failure is non-fatal
 
         fields_out: list[dict[str, str]] = []
+        field_count = 0
         try:
             if hasattr(lyr, "fields"):
-                for f in lyr.fields():
+                all_fields = lyr.fields()
+                field_count = len(all_fields)
+                for f in list(all_fields)[:_MAX_FIELDS_PER_LAYER]:
                     fields_out.append({"name": f.name(), "type": f.typeName()})
         except Exception:
             fields_out = []
+            field_count = 0
 
         geometry_type = None
         try:
@@ -1101,6 +1110,7 @@ class GeoEdgePlugin:
             "crs": crs_authid,
             "feature_count": safe(lambda: lyr.featureCount(), None) if hasattr(lyr, "featureCount") else None,
             "fields": fields_out,
+            "field_count": field_count,
             "bbox": bbox,
         }
         if send_layer_paths and hasattr(lyr, "source"):
