@@ -28,29 +28,13 @@ exposes them as plain attributes.  Import and use as::
 
 from __future__ import annotations
 
-try:
-    from qgis.PyQt.QtCore import Qt as _Qt
-except ImportError:
-    try:
-        from PyQt6.QtCore import Qt as _Qt  # type: ignore[no-redef]
-    except ImportError:
-        from PyQt5.QtCore import Qt as _Qt  # type: ignore[no-redef]
-
-try:
-    from qgis.PyQt.QtGui import QFont as _QFont
-except ImportError:
-    try:
-        from PyQt6.QtGui import QFont as _QFont  # type: ignore[no-redef]
-    except ImportError:
-        from PyQt5.QtGui import QFont as _QFont  # type: ignore[no-redef]
-
-try:
-    from qgis.PyQt.QtWidgets import QLineEdit as _QLineEdit, QDialogButtonBox as _QDialogButtonBox
-except ImportError:
-    try:
-        from PyQt6.QtWidgets import QLineEdit as _QLineEdit, QDialogButtonBox as _QDialogButtonBox  # type: ignore[no-redef]
-    except ImportError:
-        from PyQt5.QtWidgets import QLineEdit as _QLineEdit, QDialogButtonBox as _QDialogButtonBox  # type: ignore[no-redef]
+from qgis.PyQt.QtCore import Qt as _Qt
+from qgis.PyQt.QtGui import QFont as _QFont
+from qgis.PyQt.QtWidgets import (
+    QLineEdit as _QLineEdit,
+    QDialogButtonBox as _QDialogButtonBox,
+    QMessageBox as _QMessageBox,
+)
 
 
 def _r(qt6_getter, qt5_getter):
@@ -136,7 +120,16 @@ class _QDialogButtonBoxCompat:
     No     = _r(lambda: _QDialogButtonBox.StandardButton.No,     lambda: _QDialogButtonBox.No)
 
 
+class _QMessageBoxCompat:
+    """Namespace of QMessageBox.* enum constants compatible with both Qt5 and Qt6."""
+
+    # --- Standard buttons (Qt6: QMessageBox.StandardButton.*) ------------
+    Yes = _r(lambda: _QMessageBox.StandardButton.Yes, lambda: _QMessageBox.Yes)
+    No  = _r(lambda: _QMessageBox.StandardButton.No,  lambda: _QMessageBox.No)
+
+
 QtC               = _QtCompat()
 QFontC            = _QFontCompat()
 QLineEditC        = _QLineEditCompat()
 QDialogButtonBoxC = _QDialogButtonBoxCompat()
+QMessageBoxC      = _QMessageBoxCompat()

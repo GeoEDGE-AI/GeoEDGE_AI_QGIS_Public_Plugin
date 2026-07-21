@@ -25,7 +25,7 @@ import logging
 import os
 from typing import Any
 
-from ._qt_compat import QtC
+from ._qt_compat import QtC, QMessageBoxC
 
 logger = logging.getLogger(__name__)
 
@@ -844,7 +844,7 @@ class GeoEdgePlugin:
                 "GeoEdge AI — Approval required",
                 f"The agent wants to {action}.\n\n{reason}\n\nProceed?",
             )
-            granted = ans == QMessageBox.Yes
+            granted = ans == QMessageBoxC.Yes
             self._chat_panel.append_system(
                 f"Approval {'granted' if granted else 'denied'} for: {action}"
             )
@@ -1029,30 +1029,18 @@ class GeoEdgePlugin:
 
         # Use explicit constant comparison rather than getattr(.., "name") on
         # the SIP enum value — QGIS SIP enums do not reliably expose a .name
-        # attribute across all builds.
-        # QGIS 4.x moved the enum to QgsMapLayer.LayerType.*; QGIS 3.x exposes
-        # them as flat attributes directly on QgsMapLayer.
-        try:
-            _TYPE_MAP = {
-                QgsMapLayer.LayerType.VectorLayer: "vector",
-                QgsMapLayer.LayerType.RasterLayer: "raster",
-                QgsMapLayer.LayerType.MeshLayer: "mesh",
-                QgsMapLayer.LayerType.VectorTileLayer: "vector_tile",
-                QgsMapLayer.LayerType.AnnotationLayer: "annotation",
-                QgsMapLayer.LayerType.PluginLayer: "plugin",
-                QgsMapLayer.LayerType.GroupLayer: "group",
-            }
-        except AttributeError:
-            # QGIS 3.x — enum values are flat attributes on QgsMapLayer
-            _TYPE_MAP = {
-                QgsMapLayer.VectorLayer: "vector",
-                QgsMapLayer.RasterLayer: "raster",
-                QgsMapLayer.MeshLayer: "mesh",
-                QgsMapLayer.VectorTileLayer: "vector_tile",
-                QgsMapLayer.AnnotationLayer: "annotation",
-                QgsMapLayer.PluginLayer: "plugin",
-                QgsMapLayer.GroupLayer: "group",
-            }
+        # attribute across all builds. Scoped access (QgsMapLayer.LayerType.*)
+        # is required on Qt6/PyQt6 and already works on the plugin's minimum
+        # supported QGIS version (3.40), so no flat-attribute fallback is needed.
+        _TYPE_MAP = {
+            QgsMapLayer.LayerType.VectorLayer: "vector",
+            QgsMapLayer.LayerType.RasterLayer: "raster",
+            QgsMapLayer.LayerType.MeshLayer: "mesh",
+            QgsMapLayer.LayerType.VectorTileLayer: "vector_tile",
+            QgsMapLayer.LayerType.AnnotationLayer: "annotation",
+            QgsMapLayer.LayerType.PluginLayer: "plugin",
+            QgsMapLayer.LayerType.GroupLayer: "group",
+        }
         layer_type = None
         try:
             t = lyr.type() if hasattr(lyr, "type") else None

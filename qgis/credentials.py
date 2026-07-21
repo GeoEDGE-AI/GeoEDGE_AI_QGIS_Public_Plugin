@@ -30,13 +30,7 @@ except ImportError:
 try:
     from qgis.PyQt.QtCore import QSettings  # type: ignore[import-untyped]
 except ImportError:
-    try:
-        from PyQt6.QtCore import QSettings  # type: ignore[import-untyped]  # QGIS 4.x standalone
-    except ImportError:
-        try:
-            from PyQt5.QtCore import QSettings  # type: ignore[import-untyped]
-        except ImportError:
-            QSettings = None  # type: ignore[misc,assignment]
+    QSettings = None  # type: ignore[misc,assignment]
 
 _AUTH_CFG_PREFIX = "geoedge_ai"
 
